@@ -432,21 +432,33 @@ const GlobalStyle = createGlobalStyle`
   .Toastify__toast-body {
     padding:5px;}
     
-    ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius:3px;
+  background: #5b49a5; 
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #e841af;
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: all 200ms ease-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
 }
 `;
 
