@@ -1,80 +1,39 @@
-## Candidate-Tester
-This Repo is intended to instruct new Frontend developer (Native & Web) candidates on the steps to follow for completing the Norigin Media testing task.
+## Candidate Andres Ferrero
 
----
+Here are the instructions to deploy the project locally and some comments about what i did to accomplish what is implemented.
 
-#### What we want to assess:
+I added a custom script to package.json named `dev-start`, launch it with `yarn dev-start` or `npm run dev-start` after deploying the <b>Mock-API</b>
 
-* Your coding skills.
-* Intuition for design & UX.
-* Multi Screen / Cross Browser allocations.
-* Platform, Framework & Tooling knowledge.
-* App packaging and production readiness.
+First of all, i wanted to do a solid setup for you to see what i tend to use in a daily basis. From the most important aspects of it i can highlight:
 
-#### Requirements :
+- Eslint
+- Prettier
+- Airbnb linting rules
+- Custom linting rules
+- lint-staged
+- Husky
+- Customize create react app
 
- * Build a single screen web or native application (**EPG Screen**) using your choice of framework / tooling
- 
-    **NOTE:** For *Web Developers*: React, Vue.js, React-Native, Vanilla JS / Typescript for example - No restrictions apply, however try to avoid using project generators / starter-kits / sample projects were possible.
-    
-    **NOTE:** For *Native Developers*: Java, Kotlin, ObjectiveC - No restrictions to tooling or frameworks apply.
- 
- * Use the designs in the `./mockups` folder to guide your work. 
- * Use **Mock-Api** package included to supply the EPG data. See `package.json`.
- * For Web developers task submission is expected to be in NPM package format (**Preferably via GitHub**) with simple steps to install and run. Pass the link to your contact with our management or your recruiter when you're done. 
- 
-    **NOTE:** For *Native Developers*: Alternative methods of submission are acceptible for Android & iOS projects.
- 
- * Task is not expected to take any more than 2 days of your time.
+Most of those are to guarantee code quality before pushing into repositories and accomplish homogeneity between implementations in teams, preventing conflicts on merges, etc.
 
-**NOTE:** There is no need to use this tester repo as the basis for your task. You can rework it, supply your own structure and include the libraries / dependencies however you prefer.
+I used customize-cra to not have the need to use relative routes on imports, having the symbol `~` representing the `src` folder
 
- * A base level of interactivity is expected regarding the progression of time and how this is refected in the EPG. For example the yellow line indicating the current program should update and change, as well as a functional auto-scroll shortcut to be triggered when pressing on the "NOW" button.
+##Now, to the main course.
 
-#### Cool to have (But not required and wont negatively impact assessment):
+I cloned the technical test repo you provided and started to develop atop of it, changing its url origin to a new repo of mine in github, which i guess you'd be checking right now. You can watch the commits and merges on the repo to check the workflow i followed. I could've been a little more thorough with it but preferred to focus on the layout and implementation.
 
-* Add more interactions, animations or just nail the UX.
-* Responsive layouts for multi-screen support.
-* Make performance and optimization considerations.
-* Additional screens using mock data api.
-* Additional EPG showing an alternative layout.
+Having React not being a framework but instead a library leaves a lot of ground for teams to plow regarding folder organization, deciding where to do the async calls, etc.
 
+What i propose in here is that every component should have its own folder containing the login it needs in an index file and a styles file containing the styles implemented with `styled-components`
 
----
-## Design Example:
+There's also a pages folder containing more complex components that represent major Views, associated with routes. Each of those can have a components folder containing components only common for them.
 
-We have included some mockup designs to act as a guide. You can find them in the `./mockups` folder.
+I used redux-saga because i consider it to be a very potent tool, allowing you to isolate async calls and logic that you want to do in between. Preserving redux philosophy (having actions be pure) and leave reducers having the less logic possible.
 
-Example EPG design:
+## Further comments
 
-![alt text](https://raw.githubusercontent.com/NoriginMedia/candidate-tester/master/mockups/EPG_small.png "Logo Title Text 1")
+I'm aware that the route /program/:id is a lacking a bit on design, but i felt that the home view was more than enough to prove the skills required for the test.
 
+I'm delaying the data load into redux state to be able to showcase the loader/spinner i added ;)
 
-
-NOTE: Additional screens are optional and only if you really want to impress us with your skillz (Yes.. with a Z) should you add them to your app.
-
----
-
-## Mock-API:
-
-We have provided a basic mock api to supply EPG data for this task. 
-
-This is packaged as a standard Node NPM module. To install simply run: `-> npm install` from the project root directory.
-Of course Node.JS should be installed beforehand. For Native Developers not familar with NPM here is the [NPM Documentation](https://docs.npmjs.com/getting-started/installing-node)
-
-To run the update & run mock-api server execute the command below:
-
-```
--> npm run start
-```
-You should see the server start on port 1337.
-```
-Mock service running at http://localhost:1337
-```
-You can now request data from the mock-api: 
-`Try It: http://localhost:1337/epg`
-
-
-For additional information you can find the package and the documentation here: [Norigin Mock-API](https://github.com/NoriginMedia/mock-api/tree/cloudberry)
-
----
+I'm available for any questions regarding the tech used, the approach and/or the mindset between all implemented.
