@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { transparentize } from "polished";
+import { Button } from "~/components/Button";
 
 const minsMult10InADay = [...new Array(144)];
 const gridCols = (measure) =>
@@ -117,5 +118,18 @@ export const TimeTag = styled.div`
 
   &:first-child {
     width: ${({ measure }) => measure * 5}px;
+  }
+`;
+
+export const NowButton = styled(Button)`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border-style: none;
+  text-transform: uppercase;
+  font-weight: 700;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.secondary};
   }
 `;

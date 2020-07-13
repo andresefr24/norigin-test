@@ -4,7 +4,7 @@ import { v4 } from "uuid";
 import { minutesDiffFromDayStart } from "~/pages/Home/utils";
 import useTheme from "~/utils/useTheme";
 
-export default function Program({ title, start, end }) {
+export default function Program({ title, start, end, ...rest }) {
   const theme = useTheme();
 
   const {
@@ -32,12 +32,12 @@ export default function Program({ title, start, end }) {
         backgroundColor: isAiring && theme.colors.secondary,
         color: theme.colors.lighter,
         borderLeft: `1px solid ${theme.colors.modded.light_t_90}`,
-        borderBottom: `1px solid ${theme.colors.modded.light_t_90}`,
         cursor: "pointer",
         fontFamily: theme.fonts.primary,
         fontSize: theme.fontScale.paragraph,
         transition: "all 0.2s",
       }}
+      {...rest}
     >
       <p> {title}</p>
       <div className="schedules">
