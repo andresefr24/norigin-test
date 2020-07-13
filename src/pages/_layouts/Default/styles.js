@@ -8,5 +8,5 @@ export const Container = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  background: linear-gradient(214deg, #542466, #244366);
+  background: linear-gradient(34deg, #542466, #244366);
 `;

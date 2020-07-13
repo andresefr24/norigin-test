@@ -19,6 +19,8 @@ const GlobalStyle = createGlobalStyle`
     }
   } 
   
+  button:focus {outline:0;}
+  
   .Toastify__toast-container {
   z-index: 9999;
   -webkit-transform: translate3d(0, 0, 9999px);
@@ -437,7 +439,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 ::-webkit-scrollbar-track {
-  background: #transparent;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {

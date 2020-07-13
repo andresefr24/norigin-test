@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
 import { format } from "date-fns";
 import useMediaQuery from "react-responsive";
+import { useHistory } from "react-router-dom";
 import { fetchProgramsRequest } from "~/store/modules/programs/actions";
 import Default from "~/pages/_layouts/Default";
 import * as S from "./styles";
@@ -12,6 +13,8 @@ import SpinnerModal from "~/components/Modal/SpinnerModal";
 
 export default function Home() {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const referenceTimes = [...new Array(24)];
   const [measure, setMeasure] = useState(50);
 
@@ -27,24 +30,34 @@ export default function Home() {
     setMeasure(isMobile ? 100 : 50);
   }, [setMeasure, isMobile]);
 
-  useEffect(() => {
+  const scrollToNow = () => {
     const currentHour = format(new Date(), "H");
-    if (
-      document.getElementById(
-        `t-${parseInt(currentHour, 10) + (isMobile ? 0 : 1)}`
-      )
-    ) {
+    if (document.getElementById(`t-${parseInt(currentHour, 10)}`)) {
       document
         .getElementById(`t-${parseInt(currentHour, 10) + 1}`)
-        .scrollIntoView();
+        .scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  useEffect(() => {
+    scrollToNow();
   }, [data, isMobile]);
+
+  const handleHorizontalScroll = (e) => {
+    const calendar = document.getElementById("horizontal_scroll");
+    const posX = calendar.scrollLeft;
+    calendar.scrollTo({
+      top: 0,
+      left: posX + e.deltaY / 2,
+      behaviour: "smooth",
+    });
+  };
 
   return (
     <Default>
       <S.Container>
         {!loading && (
-          <S.Calendar measure={measure}>
+          <S.Calendar measure={measure} id="horizontal_scroll">
             <div className="channel_column">
               {data.map(({ title, images: { logo } }) => (
                 <div className="channel_feed_row" key={v4()}>
@@ -54,7 +67,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div className="feed_column">
+            <div className="feed_column" onWheel={handleHorizontalScroll}>
               <S.Reticle position={currentHourPosition(measure)} />
               <S.TimeReferences measure={measure}>
                 {referenceTimes.map((hour, i) => (
@@ -69,12 +82,21 @@ export default function Home() {
                 <div className="channel_feed_row" key={v4()}>
                   <div className="feed_container">
                     {schedules.map((schedule) => (
-                      <Program key={v4()} {...schedule} />
+                      <Program
+                        {...schedule}
+                        key={v4()}
+                        onClick={() => {
+                          history.push(`/program/${schedule.id}`);
+                        }}
+                      />
                     ))}
                   </div>
                 </div>
               ))}
             </div>
+            <S.NowButton type="primary" onClick={scrollToNow}>
+              Now
+            </S.NowButton>
           </S.Calendar>
         )}
       </S.Container>

@@ -6,6 +6,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   padding: 0 10px;
+  z-index: 100;
 
   color: ${({ theme }) => theme.colors.lighter};
 
