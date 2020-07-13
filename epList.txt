@@ -1,0 +1,29 @@
+title: "Norigin Media Mock API"
+
+/auth:
+  /anonymous:
+
+  /authenticate:
+
+/genres:
+
+/slides:
+
+/epg:
+
+/favoriteChannels/{userId}:
+
+/channel:
+  /{channelId}:
+
+/catchup:
+  /{programId}:
+
+/program:
+  /program_catchup_id:
+
+  /program_live_id:
+
+  /{programId}:
+
+  /progress/{userId}:
